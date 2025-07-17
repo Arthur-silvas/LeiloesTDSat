@@ -1,11 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author Adm
+ * @author Arhtur
  */
 public class cadastroVIEW extends javax.swing.JFrame {
 
@@ -136,7 +134,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
 
     private void cadastroNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroNomeActionPerformed
         
-        
+
     }//GEN-LAST:event_cadastroNomeActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -144,17 +142,34 @@ public class cadastroVIEW extends javax.swing.JFrame {
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
         String status = "A Venda";
-        produto.setNome(nome);
-        produto.setValor(Integer.parseInt(valor));
-        produto.setStatus(status);
         
-        ProdutosDAO produtodao = new ProdutosDAO();
-        produtodao.cadastrarProduto(produto);
+        if (nome.isEmpty() || valor.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, preecha todos os campos");
+        } else {
+            try {
+                valor = valor.replace(".", "").replace(",", ".");
+                
+                produto.setNome(nome);
+                produto.setValor(Double.parseDouble(valor)); //Validação de valor
+                produto.setStatus(status);
+                
+                ProdutosDAO produtodao = new ProdutosDAO();
+                produtodao.cadastrarProduto(produto);
+                
+                JOptionPane.showMessageDialog(this, "Cadastramento concluído");
+                
+                cadastroNome.setText("");
+                cadastroValor.setText("");
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar");
+            }
+        }
         
-    }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    }//GEN-LAST:event_btnCadastrarActionPerformed
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
-        listagemVIEW listagem = new listagemVIEW(); 
+        listagemVIEW listagem = new listagemVIEW();
         listagem.setVisible(true);
     }//GEN-LAST:event_btnProdutosActionPerformed
 
