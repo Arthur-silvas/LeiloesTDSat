@@ -125,7 +125,7 @@ public class listagemVIEW extends javax.swing.JFrame {
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         String id = id_produto_venda.getText();
-        if(id_produto_venda == null){
+        if(id_produto_venda.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Informe o ID da venda");
         }else{
         ProdutosDAO produtosdao = new ProdutosDAO();
